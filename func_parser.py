@@ -15,7 +15,7 @@ class FuncParser:
     def split_function(self, func): #Expecting string
         
         #Define possible operators
-        ops = ['\\'+op if op == '-' else op for op in MyOperator.OPERATOR_PRIORITIES] + MyOperator.FUNCTIONS
+        ops = ['\\'+op if op == '-' else op for op in MyOperator.OPERATOR_PRIORITIES] + MyOperator.FUNCTIONS #Escape '-' operator to avoid detection as range, Ex [0-9] means 0 to 9
         ops = '|'.join(ops)
         pattern = r'(\w{{1,}}|[({0})])'.format(ops)
         
@@ -23,7 +23,8 @@ class FuncParser:
         
         split_func = re.findall(pattern, func.replace(' ', '')) #Separate operators and their respective operands
         
-        split_func = [i for i in split_func if i != ''] #Remove empty strings        
+        split_func = [i for i in split_func if i != ''] #Remove empty strings
+               
         
         #Translate shorthand multiplication (Ex. change 2x to 2*x)
         
